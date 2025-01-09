@@ -2,7 +2,7 @@ data "aws_vpc" "default" {
   default = true
 }
 
-/*
+
 
 data "aws_ami" "app_ami" {
   most_recent = true
