@@ -60,4 +60,3 @@ module "blog_vpc" {
     Environment = "dev"
   }
 }
-*/
