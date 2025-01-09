@@ -30,7 +30,7 @@ module "blog_sg" {
   egress_cidr_blocks  = ["0.0.0.0/0"]
 }
 
-module "autoscaling" {
+module "blog_asg" {
   source                  = "terraform-aws-modules/autoscaling/aws"
   version                 = "8.0.1"
   name                    = "blog"
@@ -38,7 +38,7 @@ module "autoscaling" {
   max_size                = 2
 
   vpc_zone_identifier     = module.blog_vpc.public_subnets
-  autoscaling_group_name  = module.blog_alb.name
+  autoscaling_group_load_balancers  = module.blog_alb.name
   security_groups         = [module.blog_sg.security_group_id]
 
   image_id                = data.aws_ami.app_ami.id
