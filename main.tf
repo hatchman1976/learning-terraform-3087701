@@ -2,8 +2,6 @@ data "aws_vpc" "default" {
   default = true
 }
 
-
-
 data "aws_ami" "app_ami" {
   most_recent = true
 
@@ -19,8 +17,6 @@ data "aws_ami" "app_ami" {
 
   owners = ["979382823631"] # Bitnami
 }
-
-
 
 resource "aws_instance" "blog" {
   ami                    = data.aws_ami.app_ami.id
@@ -53,6 +49,21 @@ module "alb" {
   subnets                       = module.blog_vpc.public_subnets
 
   security_groups               = [module.blog_sg.security_group_id]
+
+  target_groups = {
+    ex-instance = {
+      name_prefix      = "blog-"
+      protocol         = "HTTP"
+      port             = 80
+      target_type      = "instance"
+      targets          = {
+        my_target = {
+          target_id = aws_instance.blog.id
+          port = 80
+        }
+      }
+    }
+  }
 
   tags = {
     Environment = "Development"
