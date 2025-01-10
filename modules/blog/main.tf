@@ -90,6 +90,8 @@ module "blog_alb" {
 
   enable_deletion_protection = false
 
+  listeners = [aws_lb_listener.example]
+
   tags = {
     Environment = var.environment.name
     Project     = "Example"
