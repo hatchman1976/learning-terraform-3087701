@@ -31,7 +31,7 @@ module "blog_sg" {
 }
 
 # Auto Scalking Group
-resource "blog_asg" "example" {
+resource "aws_autoscaling_group" "blog_asg" {
   name                    = "blog-asg"
   min_size                = 1
   max_size                = 2
@@ -61,7 +61,6 @@ module "blog_vpc" {
     Environment = "dev"
   }
 }
-
 
 
 # Application Load Balancer
