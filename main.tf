@@ -45,8 +45,6 @@ module "blog_asg" {
 
 }
 
-
-
 module "blog_vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
@@ -60,5 +58,20 @@ module "blog_vpc" {
   tags = {
     Terraform = "true"
     Environment = "dev"
+  }
+}
+
+
+
+
+module "blog-alb" {
+  source = "terraform-aws-modules/alb/aws"
+
+  name    = "blog-alb"
+  vpc_id  = module.blog_vpc.id
+
+  tags = {
+    Environment = "Development"
+    Project     = "Example"
   }
 }
