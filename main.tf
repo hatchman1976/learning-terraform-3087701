@@ -31,10 +31,8 @@ module "blog_sg" {
 }
 
 # Auto Scalking Group
-module "blog_asg" {
-  source                  = "terraform-aws-modules/autoscaling/aws"
-  version                 = "8.0.1"
-  name                    = "blog"
+resource "blog_asg" "example" {
+  name                    = "blog-asg"
   min_size                = 1
   max_size                = 2
 
