@@ -74,25 +74,17 @@ module "blog_vpc" {
   }
 }
 
+resource "aws_lb" "blog-alb" {
+  name = "blog.alb"
+  internal = false
+  load_balancer_type = "application"
 
-# Application Load Balancer
-module "blog_alb" {
-  source = "terraform-aws-modules/alb/aws"
-
-  name                = "blog-alb"
-  internal            = false
-  load_balancer_type  = "application"
-
-
-  vpc_id              = module.blog_vpc.vpc_id
   subnets             = module.blog_vpc.public_subnets
   security_groups     = [module.blog_sg.security_group_id]
 
   enable_deletion_protection = false
 
-  listeners = [aws_lb_listener.example]
-
-  tags = {
+    tags = {
     Environment = var.environment.name
     Project     = "Example"
   }
@@ -109,7 +101,7 @@ resource "aws_lb_target_group" "blog_alb_tg" {
 
 # ALB Listener
 resource "aws_lb_listener" "example" {
-  load_balancer_arn = module.blog_alb.arn
+  load_balancer_arn = aws_lb.blog-alb.arn
   port              = 80
   protocol          = "HTTP"
 
