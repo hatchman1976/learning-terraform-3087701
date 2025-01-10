@@ -46,8 +46,9 @@ resource "aws_autoscaling_group" "blog_asg" {
 
 resource "aws_launch_configuration" "as_conf" {
   name_prefix   = "terraform-lc-example-"
-  image_id      = "bitnami-tomcat-*-x86_64-hvm-ebs-nami"
+  image_id      = data.aws_ami.app_ami.id
   instance_type = "t2.micro"
+  
 
   lifecycle {
     create_before_destroy = true
