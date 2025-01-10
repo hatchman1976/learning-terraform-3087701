@@ -44,8 +44,6 @@ module "blog_asg" {
   image_id                = data.aws_ami.app_ami.id
   instance_type           = var.instance_type
 
-  target_group_arns = [aws_lb_target_group.blog_alb_tg.arn]
-
 }
 
 module "blog_vpc" {
