@@ -46,7 +46,7 @@ resource "aws_autoscaling_group" "blog_asg" {
 
 resource "aws_launch_configuration" "as_conf" {
   name_prefix   = "terraform-lc-example-"
-  image_id      = data.aws_ami.app_ami
+  image_id      = "bitnami-tomcat-*-x86_64-hvm-ebs-nami"
   instance_type = "t2.micro"
 
   lifecycle {
