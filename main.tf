@@ -40,11 +40,11 @@ resource "aws_autoscaling_group" "blog_asg" {
 
   target_group_arns = [aws_lb_target_group.blog_alb_tg.arn]
 
-  launch_configuration = aws_launch_configuration.as_conf.name
+  launch_configuration = aws_launch_template.as_conf.name
 
 }
 
-resource "aws_launch_configuration" "as_conf" {
+resource "aws_launch_template" "as_conf" {
   name_prefix   = "terraform-lc-example-"
   image_id      = data.aws_ami.app_ami.id
   instance_type = "t2.micro"
