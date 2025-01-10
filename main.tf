@@ -95,7 +95,7 @@ resource "aws_lb_target_group" "blog_alb_tg" {
 
 # ALB Listener
 resource "aws_lb_listener" "example" {
-  load_balancer_arn = blog_alb.arn
+  load_balancer_arn = module.blog_alb.arn
   port              = 80
   protocol          = "HTTP"
 
