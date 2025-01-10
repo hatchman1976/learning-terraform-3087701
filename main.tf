@@ -63,8 +63,8 @@ module "blog_vpc" {
 
 
 
-
-module "blog-alb" {
+# Application Load Balancer
+module "blog_alb" {
   source = "terraform-aws-modules/alb/aws"
 
   name                = "blog-alb"
@@ -81,5 +81,26 @@ module "blog-alb" {
   tags = {
     Environment = "Development"
     Project     = "Example"
+  }
+}
+
+# Target Group
+resource "aws_lb_target_group" "blog_alb_tg" {
+  name     = "blog-target-group"
+  port     = 80
+  protocol = "HTTP"
+  vpc_id   = module.blog_vpc.vpc_id
+  target_type = "instance"
+}
+
+# ALB Listener
+resource "aws_lb_listener" "example" {
+  load_balancer_arn = blog_alb.arn
+  port              = 80
+  protocol          = "HTTP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.blog_alb_tg.arn
   }
 }
