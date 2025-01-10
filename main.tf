@@ -30,6 +30,7 @@ module "blog_sg" {
   egress_cidr_blocks  = ["0.0.0.0/0"]
 }
 
+# Auto Scalking Group
 module "blog_asg" {
   source                  = "terraform-aws-modules/autoscaling/aws"
   version                 = "8.0.1"
@@ -42,6 +43,8 @@ module "blog_asg" {
 
   image_id                = data.aws_ami.app_ami.id
   instance_type           = var.instance_type
+
+  target_group_arns = [aws_lb_target_group.blog_alb_tg.arn]
 
 }
 
