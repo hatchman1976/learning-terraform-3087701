@@ -1,5 +1,5 @@
 output "environment_url" {
-    value = module.blog_alb.dns_name
+    value = aws_lb.blog-alb.dns_name
 }
 
 

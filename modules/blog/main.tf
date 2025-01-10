@@ -75,7 +75,7 @@ module "blog_vpc" {
 }
 
 resource "aws_lb" "blog-alb" {
-  name = "blog.alb"
+  name = "blog-alb"
   internal = false
   load_balancer_type = "application"
 
