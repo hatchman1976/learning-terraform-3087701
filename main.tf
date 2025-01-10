@@ -30,17 +30,13 @@ module "blog_sg" {
   egress_cidr_blocks  = ["0.0.0.0/0"]
 }
 
-# Auto Scalking Group
+# Auto Scaling Group
 resource "aws_autoscaling_group" "blog_asg" {
   name                    = "blog-asg"
   min_size                = 1
   max_size                = 2
 
   vpc_zone_identifier     = module.blog_vpc.public_subnets
-  security_groups         = [module.blog_sg.security_group_id]
-
-  image_id                = data.aws_ami.app_ami.id
-  instance_type           = var.instance_type
 
   target_group_arns = [aws_lb_target_group.blog_alb_tg.arn]
 
