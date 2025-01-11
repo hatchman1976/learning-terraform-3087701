@@ -92,7 +92,6 @@ resource "aws_lb" "blog-alb" {
 
 # Target Group
 resource "aws_lb_target_group" "blog_alb_tg" {
-  name     = "blog_alb_tg"
   port     = 80
   protocol = "HTTP"
   vpc_id   = module.blog_vpc.vpc_id
@@ -100,7 +99,7 @@ resource "aws_lb_target_group" "blog_alb_tg" {
 }
 
 # ALB Listener
-resource "aws_lb_listener" "example" {
+resource "aws_lb_listener" "blog-alb-listener" {
   load_balancer_arn = aws_lb.blog-alb.arn
   port              = 80
   protocol          = "HTTP"
