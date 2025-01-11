@@ -92,7 +92,7 @@ resource "aws_lb" "blog-alb" {
 
 # Target Group
 resource "aws_lb_target_group" "blog_alb_tg" {
-  name     = "blog-target-group"
+  name     = "blog_alb_tg"
   port     = 80
   protocol = "HTTP"
   vpc_id   = module.blog_vpc.vpc_id
